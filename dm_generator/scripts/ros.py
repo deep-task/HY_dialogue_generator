@@ -50,7 +50,8 @@ class DMNode(DTNode):
 
             # Detect text
             human_speech = content['human_speech']
-            dialogflow_result = self.dialogflow_client.detect_intent_text(human_speech)
+            dialogflow_result = self.dialogflow_client.detect_intent_text(
+                human_speech)
             content.update({'dialogflow': dialogflow_result})
 
             # Update dialogflow parameters
@@ -58,12 +59,14 @@ class DMNode(DTNode):
 
         # Generate dialogs
         dialogs = intent.get_correct_dialogs()
-        generated_dialogs = [dialog.selected_value(self.language_code) for dialog in dialogs]
+        generated_dialogs = [dialog.selected_value(
+            self.language_code) for dialog in dialogs]
 
         # Out of scenario exception
         if not generated_dialogs and 'dialogflow' in content:
             dialogflow_result = content['dialogflow']
-            generated_dialogs = [dialogflow_result.query_result.fulfillment_text]
+            generated_dialogs = [
+                dialogflow_result.query_result.fulfillment_text]
 
         # Dialog result
         dialog = ' '.join(generated_dialogs)
@@ -79,8 +82,9 @@ class DMNode(DTNode):
 
         for content_name, content in contents.items():
             if content_name == 'dialog_generation':
+                print(content)
                 dialog = self.dialog_generation(content)
-
+                print("genenration")
                 if not dialog:
                     continue
 

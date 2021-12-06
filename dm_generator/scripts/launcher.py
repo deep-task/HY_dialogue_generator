@@ -18,13 +18,14 @@ def main():
 
     # Set configuration
     project_id = configuration['project-id']
-    key_path = get_key_path('dm_generator', configuration['authorization']['key'])
+    key_path = get_key_path(
+        'dm_generator', configuration['authorization']['key'])
     language_code = configuration['language-code']
+    session_id = configuration['session-id'],
 
     # Initialize nodes
-    dialogflow_client = DialogflowClient(project_id=project_id,
-                                         key_path=key_path,
-                                         language_code=language_code)
+    dialogflow_client = DialogflowClient(
+        project_id=project_id, session_id=session_id, key_path=key_path, language_code=language_code)
 
     node = DMNode(node_name=node_name,
                   scenario_name=scenario_name,
